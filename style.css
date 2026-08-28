@@ -1,0 +1,14 @@
+.playing{
+    color: green;
+    font-weight: bold;
+}
+
+.pausing{
+    color: orange;
+    font-weight: bold;
+}
+
+.waiting{
+    color: darkgoldenrod;
+    font-weight: bolder;
+}
