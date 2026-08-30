@@ -6,18 +6,23 @@
     <title>Watch Party</title>
     <link rel = "stylesheet" href = "style.css">
 
-    <title>Document</title>
 </head>
 <body>
     <h1>🎬Watch Party</h1>
-    <video id ="video" controls>
-        <source src="movie.mp4" type ="video/mp4">
-    </video>
+    <div class="player">
+        <video id ="video" controls>
+            <source src="movie.mp4" type ="video/mp4">
+        </video>
 
-    <p id = "status">Waiting......</p>
-    <p id = "timeDisplay">00:00</p>
-    <button id ="playbutton">Play</button>
-    <input type = "range" id = "progressBar" min = "0" max = "100" value="0">
+        <div class = "controls">
+                <button id ="playbutton">Play</button>
+                <input type = "range" id = "progressBar" min = "0" max = "100" value="0">
+                <p id = "timeDisplay">00:00</p>
+                
+        </div>
+
+        <p id = "status">Waiting......</p>
+    </div>
     <script src = "script.js"></script>
 </body>
 </html>
