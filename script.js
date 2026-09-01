@@ -2,7 +2,10 @@ const video = document.querySelector("#video");
 const status_text = document.querySelector("#status");
 const play_btn = document.querySelector("#playbutton");
 const timeDisplay = document.querySelector("#timeDisplay");
-const progress_bar = document.querySelector("#progressBar")
+const progress_bar = document.querySelector("#progressBar");
+const volumeBar = document.querySelector("#volumeBar");
+const volumeDisplay = document.querySelector("#volumeDisplay");
+const muteButton = document.querySelector("#muteButton");
 
 
 console.log(video);
@@ -41,6 +44,10 @@ video.addEventListener("timeupdate",()=>{
 progress_bar.addEventListener("input",()=>{
     video.currentTime = (progress_bar.value/100)*video.duration;
 });
+volumeBar.addEventListener("input",()=>{
+    video.volume = volumeBar.value;
+    volumeDisplay.textContent=`${Math.round(video.volume*100)}%`
+});
 play_btn.addEventListener("click",()=>{
     if(video.paused)
     {
@@ -48,5 +55,17 @@ play_btn.addEventListener("click",()=>{
     }
     else{
         video.pause();
+    }
+});
+muteButton.addEventListener("click",()=>{
+    video.muted = !video.muted;
+    if(video.muted)
+    {
+        muteButton.textContent = "🔇";
+        
+    }
+    else
+    {
+        muteButton.textContent = "🔊";
     }
 });

@@ -45,6 +45,11 @@ video{
     display: block;
     margin: 0 auto;
 }
+.volume-control{
+    display: flex;
+    align-items: center;
+    gap:10px;
+}
 #progressBar{
     flex: 1;
 }
