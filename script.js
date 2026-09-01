@@ -46,7 +46,9 @@ progress_bar.addEventListener("input",()=>{
 });
 volumeBar.addEventListener("input",()=>{
     video.volume = volumeBar.value;
-    volumeDisplay.textContent=`${Math.round(video.volume*100)}%`
+    volumeDisplay.textContent=`${Math.round(video.volume*100)}%`;
+    muteButton.textContent = "🔊";
+    video.muted = false;
 });
 play_btn.addEventListener("click",()=>{
     if(video.paused)
@@ -62,7 +64,6 @@ muteButton.addEventListener("click",()=>{
     if(video.muted)
     {
         muteButton.textContent = "🔇";
-        
     }
     else
     {
