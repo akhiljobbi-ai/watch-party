@@ -6,6 +6,7 @@ const progress_bar = document.querySelector("#progressBar");
 const volumeBar = document.querySelector("#volumeBar");
 const volumeDisplay = document.querySelector("#volumeDisplay");
 const muteButton = document.querySelector("#muteButton");
+const socket = new WebSocket("ws://127.0.0.1:8000/ws");
 
 
 console.log(video);
@@ -17,6 +18,7 @@ video.addEventListener("play",()=>{
     status_text.classList.add("playing");
     status_text.classList.remove("pausing");
     play_btn.textContent = "Pause"
+    socket.send("play")
 });
 
 video.addEventListener("pause",()=>{
@@ -25,6 +27,7 @@ video.addEventListener("pause",()=>{
     status_text.classList.add("pausing");
     status_text.classList.remove("playing");
     play_btn.textContent = "Play"
+    socket.send("pause")
 });
 video.addEventListener("timeupdate",()=>{
     const minutes = Math.floor(video.currentTime/60);
@@ -69,4 +72,10 @@ muteButton.addEventListener("click",()=>{
     {
         muteButton.textContent = "🔊";
     }
+});
+socket.addEventListener("open",()=>{
+    socket.send("Hello Server !");
+});
+socket.addEventListener("message",(event)=>{
+    console.log(event.data);
 });
