@@ -7,7 +7,7 @@ const volumeBar = document.querySelector("#volumeBar");
 const volumeDisplay = document.querySelector("#volumeDisplay");
 const muteButton = document.querySelector("#muteButton");
 const socket = new WebSocket("ws://127.0.0.1:8000/ws");
-
+let syncing = false;
 
 console.log(video);
 console.log("Java script is connected");
@@ -17,8 +17,12 @@ video.addEventListener("play",()=>{
     status_text.textContent = "Video is playing....";
     status_text.classList.add("playing");
     status_text.classList.remove("pausing");
-    play_btn.textContent = "Pause"
-    socket.send("play")
+    play_btn.textContent = "Pause";
+    if(!syncing)
+    {
+        socket.send("play");
+    }
+    syncing = false;
 });
 
 video.addEventListener("pause",()=>{
@@ -26,8 +30,13 @@ video.addEventListener("pause",()=>{
     status_text.textContent="Video is paused...";
     status_text.classList.add("pausing");
     status_text.classList.remove("playing");
-    play_btn.textContent = "Play"
-    socket.send("pause")
+    play_btn.textContent = "Play";
+    if(!syncing)
+    {
+        socket.send("pause");
+    }
+    syncing = false;
+    
 });
 video.addEventListener("timeupdate",()=>{
     const minutes = Math.floor(video.currentTime/60);
@@ -74,8 +83,20 @@ muteButton.addEventListener("click",()=>{
     }
 });
 socket.addEventListener("open",()=>{
+     console.log("🟢 WebSocket connected");
     socket.send("Hello Server !");
 });
 socket.addEventListener("message",(event)=>{
-    console.log(event.data);
+    console.log("📨 Received from server:", event.data);
+
+    if(event.data == "play")
+    {
+        syncing = true;
+        video.play();
+    }
+    if(event.data == "pause")
+    {
+        syncing = true;
+        video.pause();
+    }
 });
